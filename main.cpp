@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     ACC a1;
     engine.rootContext()->setContextProperty("ACC", &a1);
     a1.setIgnitionState(0);
-    a1.setEngineTemperature(70);
-    a1.setFuelLevel(50);
+    a1.setEngineTemperature(110);
+    a1.setFuelLevel(0);
     a1.setDistance(30);
     a1.setAccState(1);
     QDBusConnection::sessionBus().isConnected();

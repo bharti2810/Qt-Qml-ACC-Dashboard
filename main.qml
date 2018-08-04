@@ -257,6 +257,7 @@ Window {
             width:135
             height:135
             x:4
+            value: ACC.engineTemperature
             y:4
             id:tempIndicator
             //value: slider.value*8
@@ -323,6 +324,10 @@ Window {
 
     } //rectangle for temp indicator
     Rectangle {
+       /* MouseArea {
+               anchors.fill: parent
+               onClicked: console.log(fuelIndicator.value)
+           }*/
         x:650
         y:175
         border.color: "#FF9A00"
@@ -332,17 +337,18 @@ Window {
         radius:70
         color:"black"
         CircularGauge {
-
+            id:fuelIndicator
             width:135
             height:135
             x:4
+            value: ACC.fuelLevel
             y:4
-            id:fuelIndicator
+
             //value: slider.value*8
             maximumValue:1
             minimumValue:0
             Indicator
-            {
+            {   istatus:fuelIndicator.value
                 id:fuel
                 //x:20
                // y:20

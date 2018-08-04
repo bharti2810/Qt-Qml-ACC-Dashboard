@@ -2,7 +2,7 @@ import QtQuick 2.0
 Rectangle{
     property alias mySource1:img1.source
     property alias mySource2:img2.source
-    property alias fuelstatus:img1.opacity
+    property int istatus
 
 
    /* MouseArea {
@@ -19,8 +19,8 @@ Rectangle{
     states:[
         State{
             name:"Ignition_on"
-            PropertyChanges { target: img1;source:mySource1;scale: 0.15; opacity: fuelstatus}
-            PropertyChanges { target: img2;source:mySource2; scale: 0.15; opacity:!(fuelstatus)}
+            PropertyChanges { target: img1;source:mySource1;scale: 0.15; opacity: istatus}
+            PropertyChanges { target: img2;source:mySource2; scale: 0.15; opacity:!(istatus)}
         },
         State{
             name:"Ignition_off"
@@ -46,7 +46,7 @@ Rectangle{
          smooth: true
         id: img1
         source:mySource1
-        opacity: fuelstatus
+       // opacity: fuelstatus
         //opacity: 0
        //anchors.fill: img2
     }
@@ -54,7 +54,7 @@ Rectangle{
          smooth: true
         id: img2
         source:mySource2
-        opacity: fuelstatus
+       // opacity: fuelstatus
 
       //  opacity: 1
        // anchors.fill: img1
