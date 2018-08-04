@@ -6,7 +6,6 @@ import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
 import QtQuick.Extras.Private 1.0
 
-
 Window {
     visible: true
     width: 3080
@@ -38,7 +37,7 @@ Window {
             maximumValue:220
             style: CircularGaugeStyle {
                 tickmarkStepSize : 20
-              /*  id: style
+                /*  id: style
 
                 function degreesToRadians(degrees) {
                     return degrees * (Math.PI / 180);
@@ -116,32 +115,32 @@ Window {
                 }//needle
 
                 foreground:  Item{
-                Rectangle
-                {
-                    width: outerRadius*0.2
-                    height: width
-
-                    radius: width/2
-
-                    anchors.centerIn: parent
-
-                    gradient: Gradient
+                    Rectangle
                     {
-                        GradientStop
-                        {
-                            position: 0.00
-                            color: "steelblue"
-                        }
+                        width: outerRadius*0.2
+                        height: width
 
-                        GradientStop
-                        {
-                            position: 0.70
-                            color: "#191919"
-                        }   // GradientStop
-                    }   // gradient
-                }   // foreground
+                        radius: width/2
 
-}//item
+                        anchors.centerIn: parent
+
+                        gradient: Gradient
+                        {
+                            GradientStop
+                            {
+                                position: 0.00
+                                color: "steelblue"
+                            }
+
+                            GradientStop
+                            {
+                                position: 0.70
+                                color: "#191919"
+                            }   // GradientStop
+                        }   // gradient
+                    }   // foreground
+
+                }//item
 
 
             }//style
@@ -167,7 +166,7 @@ Window {
         }//gauge
 
 
-    }//rectangle
+    }//rectangle1
     Rectangle {
         x:780
         y:225
@@ -260,7 +259,16 @@ Window {
             //value: slider.value*8
             maximumValue:1
             minimumValue:0
-
+            Indicator
+            {
+                id:fuel
+                //x:20
+                //y:20
+                mySource1:"index.png"//full
+                mySource2:"images.png"//empty
+                fuelstatus:0
+               // anchors.fill:parent
+            }
 
             style: CircularGaugeStyle {
                 minimumValueAngle :-60
@@ -275,34 +283,45 @@ Window {
                     antialiasing: true
                     color: Qt.rgba(0.66, 0.3, 0, 1)
 
+
+
                 }
             }
         }
-}
-
-    Indicator
-    {
-        id:fuel
-        x:20
-        y:20
-        mySource1:"index.png"
-        mySource2:"images.png"
     }
 
-    Timer{
-        id:timer
-        running:true
-        repeat:true
-        interval:5000
-        onTriggered:
-        {
-            if(Indicator.target==="img1")
-                Indicator.target="img2"
 
-            else
-                Indicator.target="img1"
-        }
+        /*Timer{
+            id:timer
+            running:true
+            repeat:true
+            interval:1000
+            onTriggered:
+            {
+                if(1)
+                    Indicator.target="image2"
+
+                else
+                    Indicator.target="image2"
+            }
+        }*/
+
+
+    /* states: State {
+        name: "mouse-over"; when: mouseArea.containsMouse
+        PropertyChanges { target: rect; scale: 0.8; opacity: 0}
+        PropertyChanges { target: rect2; scale: 0.8; opacity: 1}
     }
+    states: "go"
+
+        State{
+            name:"go"
+            PropertyChanges{target:fuel;state:"image1"}
+           // PropertyChanges{target:rlight;state:"off"}
+            //PropertyChanges{target:ylight;state:"off"}
+        }*/
 
 }
+
+
 

@@ -2,6 +2,8 @@ import QtQuick 2.0
 Rectangle{
     property alias mySource1:img1.source
     property alias mySource2:img2.source
+    property alias fuelstatus:img1.opacity
+
 
    /* MouseArea {
         id: mouseArea
@@ -13,17 +15,17 @@ Rectangle{
 
 
 
-    state: "image1"
+    state: "Ignition_on"//this is for ignition
     states:[
         State{
-            name:"image1" /*"mouse-over"*/; when: mouseArea.containsMouse
-            PropertyChanges { target: img1;source:mySource1; scale: 0.8; opacity: 0}
-            PropertyChanges { target: img2;source:mySource2; scale: 0.8; opacity: 1}
+            name:"Ignition_on"
+            PropertyChanges { target: img1;source:mySource1;scale: 0.15; opacity: fuelstatus}
+            PropertyChanges { target: img2;source:mySource2; scale: 0.15; opacity:!(fuelstatus)}
         },
         State{
-            name:"image2" /*"mouse-over"*/; when: mouseArea.containsMouse
-            PropertyChanges { target: img1;source:mySource1; scale: 0.8; opacity: 1}
-            PropertyChanges { target: img2;source:mySource2; scale: 0.8; opacity: 0}
+            name:"Ignition_off"
+            PropertyChanges { target: img1;source:mySource1; scale: 0.8; opacity: 0}
+            PropertyChanges { target: img2;source:mySource2; scale: 0.8; opacity: 1}
         }
     ]
 
@@ -44,6 +46,7 @@ Rectangle{
          smooth: true
         id: img1
         source:mySource1
+        opacity: fuelstatus
         //opacity: 0
        //anchors.fill: img2
     }
@@ -51,10 +54,15 @@ Rectangle{
          smooth: true
         id: img2
         source:mySource2
+        opacity: fuelstatus
+
       //  opacity: 1
        // anchors.fill: img1
 
     }
-
 }
+
+
+
+
 
