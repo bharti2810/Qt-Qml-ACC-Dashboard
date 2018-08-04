@@ -280,29 +280,48 @@ Window {
         }
 }
 
-    Indicator
-    {
-        id:fuel
-        x:20
-        y:20
-        mySource1:"index.png"
-        mySource2:"images.png"
-    }
 
-    Timer{
-        id:timer
-        running:true
-        repeat:true
-        interval:5000
-        onTriggered:
-        {
-            if(Indicator.target==="img1")
-                Indicator.target="img2"
+    Column {
+        spacing: 20
+        ProgressBar {
+            id:bar1
+            width: 200
+            height: 40
+            //anchors.centerIn: parent
+            from:0
+            to: 100
+            value: ACC.ignitionState
 
-            else
-                Indicator.target="img1"
         }
+        ProgressBar {
+            id:bar2
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.engineTemperature
+        }
+        ProgressBar {
+            id:bar3
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.fuelLevel
+        }
+        ProgressBar {
+            id:bar4
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.distance
+        }
+        ProgressBar {
+            id:bar5
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.accState
+        }
+
     }
 
 }
-
