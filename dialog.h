@@ -18,8 +18,9 @@ public slots:
     void onIgnitionStateChanged(bool);
     void onEngineTemperatureChanged(int);
     void onFuelLevelChanged(int);
-    void onDistanceChanged(int);
+    void onRadarTimeChanged(int);
     void onAccStateChanged(bool);
+    void onFractionOfThrottleOpeningChanged(float);
 
 private:
      ACC *m_acc;

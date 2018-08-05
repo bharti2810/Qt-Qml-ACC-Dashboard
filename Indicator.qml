@@ -1,9 +1,12 @@
 import QtQuick 2.0
+
 Rectangle{
     property alias mySource1:img1.source
     property alias mySource2:img2.source
     property int istatus
 
+//property var stateOn
+//property var stateOff
 
    /* MouseArea {
         id: mouseArea
@@ -14,16 +17,16 @@ Rectangle{
     }*/
 
 
-
-    state: "Ignition_on"//this is for ignition
+    state: (ACC.ignitionState) ?  "IgnitionOn": "IgnitionOff"
     states:[
         State{
-            name:"Ignition_on"
+
+            name:"IgnitionOn"//1
             PropertyChanges { target: img1;source:mySource1;scale: 0.15; opacity: istatus}
             PropertyChanges { target: img2;source:mySource2; scale: 0.15; opacity:!(istatus)}
         },
         State{
-            name:"Ignition_off"
+            name:"IgnitionOff"//0
             PropertyChanges { target: img1;source:mySource1; scale: 0.8; opacity: 0}
             PropertyChanges { target: img2;source:mySource2; scale: 0.8; opacity: 1}
         }

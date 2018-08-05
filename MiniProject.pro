@@ -14,7 +14,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     acc.cpp \
-    dialog.cpp
+    dialog.cpp \
+    radar.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,4 +34,5 @@ DISTFILES +=
 
 HEADERS += \
     acc.h \
-    dialog.h
+    dialog.h \
+    radar.h

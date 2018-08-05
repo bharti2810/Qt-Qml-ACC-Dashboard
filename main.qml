@@ -12,8 +12,16 @@ Window {
     width: 3080
     height: 2400
     title: qsTr("Hello World")
-
-
+    function updateRpm(val)//+//cpp to qml
+    {
+        console.log("Rpm changed:"+val);//++
+        tachoMeter.value=val//to get values without slider
+    }
+    function updateSpeed(val)//+//cpp to qml
+    {
+        console.log("Speed changed:"+val);//++
+        speedoMeter.value=val//to get values without slider
+    }
     Rectangle {
         width:700
         height:200
@@ -178,7 +186,7 @@ Window {
             x:4
             y:4
             id:tachoMeter
-            //value: slider.value*8
+            //value:Radar.get_Rpm()
             maximumValue:8
             style: CircularGaugeStyle {
                 tickmarkStepSize : 1//default tick mark size is 10
@@ -324,9 +332,9 @@ Window {
 
     } //rectangle for temp indicator
     Rectangle {
-       /* MouseArea {
+       /*MouseArea {
                anchors.fill: parent
-               onClicked: console.log(fuelIndicator.value)
+               onClicked: console.log( (ACC.ignitionState) ?  "IgnitionOn":  "IgnitionOff")
            }*/
         x:650
         y:175
@@ -421,36 +429,12 @@ Window {
 
 
     Column {
-          spacing: 20
-          ProgressBar {
-              id:bar1
-              width: 200
-              height: 40
-              //anchors.centerIn: parent
-              from:0
-              to: 100
-              value: ACC.ignitionState
-          }
-          ProgressBar {
-              id:bar2
-              to: 100
-              width: 200
-              height: 40
-              value: ACC.engineTemperature
-          }
-          ProgressBar {
-              id:bar3
-              to: 100
-              width: 200
-              height: 40
-              value: ACC.fuelLevel
-          }
           ProgressBar {
               id:bar4
               to: 100
               width: 200
               height: 40
-              value: ACC.distance
+              value: ACC.radarTime
           }
           ProgressBar {
               id:bar5
@@ -459,6 +443,8 @@ Window {
               height: 40
               value: ACC.accState
           }
+
       }
+
   }
 
