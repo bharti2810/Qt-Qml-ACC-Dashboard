@@ -4,7 +4,7 @@ ACC::ACC(QObject *parent) : QObject(parent)
 {
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(onRpmChanged()));//+//commented for DBus
-     connect(timer,SIGNAL(timeout()),this,SLOT(onSpeedChanged()));//+//commented for DBus
+    connect(timer,SIGNAL(timeout()),this,SLOT(onSpeedChanged()));//+//commented for DBus
     timer->start(2000);//+//commented for DBus
 }
 bool ACC::ignitionState() const
@@ -81,11 +81,12 @@ void ACC::onRpmChanged()
     emit rpmChanged(QVariant(getRpm()));//+
 }
 void ACC::onSpeedChanged() {
+
     distance = radarTime()*velocity_of_sound;
     qDebug() << "distance"<<distance ;
-   m_speed=getRpm()*circumference;
-   m_speed/= 12;
+    m_speed=getRpm()*circumference;
+    m_speed/= 12;
     qDebug() << "speed=" << m_speed ;
+    emit speedChanged(QVariant(m_speed));//+
 
-  emit speedChanged(QVariant(m_speed));//+
-  }
+}

@@ -1,4 +1,3 @@
-
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2//added for Slider
@@ -14,17 +13,38 @@ Window {
     height:700
     visible: true
     color: "#d3d7cf"
-    property alias indexText: indexText
     title: qsTr("Hello World")
     function updateRpm(val)//+//cpp to qml
     {
         console.log("Rpm changed:"+val);//++
-        tachoMeter.value=val//to get values without slider
+        if(ACC.ignitionState)
+        {
+            tachoMeter.value=val//to get values without slider
+        }
+        else
+        {
+            tachoMeter.value=0
+        }
     }
     function updateSpeed(val)//+//cpp to qml
     {
         console.log("Speed changed:"+val);//++
-        speedoMeter.value=val//to get values without slider
+        if(ACC.ignitionState)
+        {
+            speedoMeter.value=val//to get values without slider
+            if (val<160)
+            {
+                abs.istatus=0
+            }
+            else
+            {
+                abs.istatus=1
+            }
+        }
+        else
+        {
+            speedoMeter.value=0
+        }
     }
     Rectangle {
         id: rectangle2
@@ -41,7 +61,6 @@ Window {
             mySource2: "leftwhite.jpg"
             scaleIndicatorOn:0.8
             scaleIndicatorOff:0.8
-            istatus: 1
         }
 
         Indicator {
@@ -52,11 +71,23 @@ Window {
             mySource2: "rightwhite.jpg"
             scaleIndicatorOn:0.8
             scaleIndicatorOff:0.9
-            istatus: 1
+        }
+        focus:true
+        Keys.onLeftPressed:
+        {
+            lindicator.istatus = 1;
+        }
+        Keys.onRightPressed:
+        {
+            rindicator.istatus = 1;
         }
 
+        Keys.onReleased:
+        {
+            lindicator.istatus = 0;
+            rindicator.istatus = 0;
+        }
     }
-
 
     Rectangle {
         id: rectangle1
@@ -72,15 +103,14 @@ Window {
 
         CircularGauge {
             width: 272
-
+            id:speedoMeter
             anchors.top: parent.top
             anchors.topMargin: 4
             anchors.left: parent.left
             anchors.leftMargin: 4
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 4
-            id:speedoMeter
-            //value: slider.value*140
+
             maximumValue:220
             style: CircularGaugeStyle {
                 tickmarkStepSize : 20
@@ -211,18 +241,20 @@ Window {
                 y: 60
                 width: 8
                 height: 0
+                z: -1
                 mySource1: "Ignition.jpg"
                 mySource2: "Ignitionwhite.jpg"
                 scaleIndicatorOn:0.4
                 scaleIndicatorOff:0.4
-                istatus: 0
+                istatus: ACC.ignitionState
             }
             Indicator {
                 id: brake
-                x: 80
-                y: 15
+                x: 75
+                y: 13
                 width: 8
                 height: 0
+                z: -2
                 mySource1: "Brake.jpg"
                 mySource2: "Brakewhite.jpg"
                 scaleIndicatorOn:0.17
@@ -235,21 +267,23 @@ Window {
                 y: 70
                 width: 8
                 height: 0
+                z: -3
                 mySource1: "CruiseOn.jpg"
                 mySource2: "CruiseOnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: 0
+                istatus: ACC.accState
             }
             Indicator {
                 id: abs
                 x: 75
                 y: 100
+                z: -4
                 mySource1: "Speedlimiterwarn.jpg"
                 mySource2: "Speedlimiterwarnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: 0
+
             }
 
 
@@ -344,6 +378,7 @@ Window {
                 id: headlight
                 x: 30
                 y: 60
+                z: -1
                 mySource1: "Headlight.jpg"
                 mySource2: "DippedHeadlight.jpg"
                 scaleIndicatorOn:0.4
@@ -356,6 +391,7 @@ Window {
                 id: mil
                 x: 10
                 y: 100
+                z: -2
                 mySource1: "MIL.jpg"
                 mySource2: "Milwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -367,6 +403,7 @@ Window {
                 id: oil
                 x: 120
                 y: 60
+                z: -3
                 mySource1: "Oil.jpg"
                 mySource2: "Oilwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -378,6 +415,7 @@ Window {
                 id: seatbelt
                 x: 65
                 y: 10
+                z: -4
                 mySource1: "seatbelt.jpg"
                 mySource2: "seatbeltwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -388,6 +426,7 @@ Window {
                 id: hazard
                 x: 120
                 y: 25
+                z: -5
                 mySource1: "hazard.jpg"
                 mySource2: "hazardwhite.jpg"
                 scaleIndicatorOn:0.33
@@ -409,13 +448,13 @@ Window {
         radius:60
         color:"black"
         CircularGauge {
-
+            id:tempIndicator
             width:110
             height:110
-            value: ACC.engineTemperature
+            value: (ACC.ignitionState) ? ACC.engineTemperature : 0
             x:5
             y:6
-            id:tempIndicator
+
             //value: slider.value*8
             maximumValue:120
             minimumValue:60
@@ -500,16 +539,18 @@ Window {
                 y: 22
                 width: 8
                 height: 0
+                z: -1
                 mySource1: "temp.jpg"
                 mySource2: "tempwhite.jpg"
                 scaleIndicatorOn:0.28
                 scaleIndicatorOff:0.28
-                istatus: 1
+                istatus: (ACC.engineTemperature > 90) ? 1 : 0
             }
             Indicator {
                 id: celsius
                 x: 35
                 y: 27
+                z: -2
                 mySource1: "celsiuswhite.jpg"
                 mySource2: "celsiuswhite.jpg"
                 scaleIndicatorOn:0.23
@@ -537,7 +578,7 @@ Window {
             id:fuelIndicator
             width:110
             height:115
-            value: ACC.fuelLevel
+            value: (ACC.ignitionState) ? ACC.fuelLevel : 0
             x:5
             y:5
 
@@ -628,19 +669,15 @@ Window {
                 y: 20
                 width: 8
                 height: 0
+                z: -1
                 mySource1: "fuel.jpg"
                 mySource2: "fuelwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.2
-                istatus: 1
+                istatus: !(ACC.fuelLevel)
             }
         }
     }//rectangle for fuel indicator
-
-
-
-
-
 
 
 
