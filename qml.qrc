@@ -2,7 +2,32 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Indicator.qml</file>
-        <file>images.png</file>
-        <file>index.png</file>
+        <file>fuel.jpg</file>
+        <file>temp.jpg</file>
+        <file>Brake.jpg</file>
+        <file>DippedHeadlight.jpg</file>
+        <file>Headlight.jpg</file>
+        <file>left.jpg</file>
+        <file>right.jpg</file>
+        <file>Oil.jpg</file>
+        <file>seatbelt.jpg</file>
+        <file>CruiseOn.jpg</file>
+        <file>fuelwhite.jpg</file>
+        <file>leftwhite.jpg</file>
+        <file>rightwhite.jpg</file>
+        <file>Ignition.jpg</file>
+        <file>hazard.jpg</file>
+        <file>tempwhite.jpg</file>
+        <file>Milwhite.jpg</file>
+        <file>MIL.jpg</file>
+        <file>Oilwhite.jpg</file>
+        <file>seatbeltwhite.jpg</file>
+        <file>hazardwhite.jpg</file>
+        <file>Ignitionwhite.jpg</file>
+        <file>CruiseOnwhite.jpg</file>
+        <file>Speedlimiterwarn.jpg</file>
+        <file>Speedlimiterwarnwhite.jpg</file>
+        <file>Brakewhite.jpg</file>
+        <file>celsiuswhite.jpg</file>
     </qresource>
 </RCC>
