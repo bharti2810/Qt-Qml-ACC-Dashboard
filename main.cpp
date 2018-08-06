@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     //code for dbus
      ACC a1;
     engine.rootContext()->setContextProperty("ACC", &a1);
-    a1.setIgnitionState(0);
+    a1.setIgnitionState(1);
     a1.setEngineTemperature(110);
     a1.setFuelLevel(1);
     a1.setFractionOfThrottleOpening(1.2);

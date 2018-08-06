@@ -76,7 +76,6 @@ float ACC::getRpm()
 
 void ACC::onRpmChanged()
 {
-
     qDebug() << fractionOfThrottleOpening() ;
     emit rpmChanged(QVariant(getRpm()));//+
 }

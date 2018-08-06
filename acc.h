@@ -29,7 +29,7 @@ public:
     void setAccState(bool);
     float fractionOfThrottleOpening() const;
     void setFractionOfThrottleOpening(float);
-     float getRpm();
+    float getRpm();
 
 signals:
      void ignitionStateChanged(bool);

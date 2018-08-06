@@ -304,7 +304,7 @@ Window {
             y:3
             id:tachoMeter
             //value: slider.value*8
-            maximumValue:8
+            maximumValue:10
             style: CircularGaugeStyle {
                 tickmarkStepSize : 1//default tick mark size is 10
 
