@@ -1,7 +1,8 @@
 
+
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.2 //added for Slider
+import QtQuick.Controls 2.2//added for Slider
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
@@ -16,16 +17,8 @@ Window {
     color: "#d3d7cf"
     property alias indexText: indexText
     title: qsTr("Hello World")
-    function updateRpm(val)//+//cpp to qml
-    {
-        console.log("Rpm changed:"+val);//++
-        tachoMeter.value=val//to get values without slider
-    }
-    function updateSpeed(val)//+//cpp to qml
-    {
-        console.log("Speed changed:"+val);//++
-        speedoMeter.value=val//to get values without slider
-    }
+
+    /////////////////////////////////////////////////////////////////////////
     Rectangle {
         id: rectangle2
         x:300
@@ -33,6 +26,7 @@ Window {
         width:window.width*0.4
         height:200
         color:"black"
+       // anchors.centerIn: parent
         Indicator {
             id: lindicator
             x: 95
@@ -41,7 +35,7 @@ Window {
             mySource2: "leftwhite.jpg"
             scaleIndicatorOn:0.8
             scaleIndicatorOff:0.8
-            istatus: 1
+            istatus: true
         }
 
         Indicator {
@@ -52,13 +46,11 @@ Window {
             mySource2: "rightwhite.jpg"
             scaleIndicatorOn:0.8
             scaleIndicatorOff:0.9
-            istatus: 1
+            istatus: true
         }
 
-
     }
-
-
+    ///////////////////////////////////////////////////////////////////////
     Rectangle {
         id: rectangle1
         width: 280
@@ -216,7 +208,7 @@ Window {
                 mySource2: "Ignitionwhite.jpg"
                 scaleIndicatorOn:0.4
                 scaleIndicatorOff:0.4
-                istatus: 0
+                istatus: false
             }
             Indicator {
                 id: brake
@@ -228,7 +220,7 @@ Window {
                 mySource2: "Brakewhite.jpg"
                 scaleIndicatorOn:0.17
                 scaleIndicatorOff:0.17
-                istatus: 0
+                istatus: false
             }
             Indicator {
                 id: cruise
@@ -240,7 +232,7 @@ Window {
                 mySource2: "CruiseOnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: 0
+                istatus: false
             }
             Indicator {
                 id: abs
@@ -250,7 +242,7 @@ Window {
                 mySource2: "Speedlimiterwarnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: 0
+                istatus: false
             }
 
 
@@ -349,7 +341,7 @@ Window {
                 mySource2: "DippedHeadlight.jpg"
                 scaleIndicatorOn:0.4
                 scaleIndicatorOff:0.4
-                istatus: 0
+                istatus: true
             }
 
 
@@ -361,7 +353,7 @@ Window {
                 mySource2: "Milwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: false
             }
 
             Indicator {
@@ -372,7 +364,7 @@ Window {
                 mySource2: "Oilwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: false
             }
 
             Indicator {
@@ -383,7 +375,7 @@ Window {
                 mySource2: "seatbeltwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: false
             }
             Indicator {
                 id: hazard
@@ -393,7 +385,7 @@ Window {
                 mySource2: "hazardwhite.jpg"
                 scaleIndicatorOn:0.33
                 scaleIndicatorOff:0.33
-                istatus: 0
+                istatus: false
             }
 
         }
@@ -413,7 +405,7 @@ Window {
 
             width:110
             height:110
-            value: ACC.engineTemperature
+            value: 70
             x:5
             y:6
             id:tempIndicator
@@ -451,11 +443,13 @@ Window {
                     implicitHeight: outerRadius * 0.06
                     color: "#e5e5e5"
                 }
+
                 needle: Rectangle {
                     y: outerRadius * 0.25
                     implicitWidth: outerRadius * 0.06
                     implicitHeight: outerRadius * 0.9
                     antialiasing: true
+                    //color: Qt.rgba(0.66, 0.3, 0, 1)
                     gradient: Gradient
                     {
                         GradientStop
@@ -505,7 +499,7 @@ Window {
                 mySource2: "tempwhite.jpg"
                 scaleIndicatorOn:0.28
                 scaleIndicatorOff:0.28
-                istatus: 1
+                istatus: true
             }
             Indicator {
                 id: celsius
@@ -519,12 +513,9 @@ Window {
             }
         }
 
+
     } //rectangle for temp indicator
     Rectangle {
-        /*MouseArea {
-               anchors.fill: parent
-               onClicked: console.log( (ACC.ignitionState) ?  "IgnitionOn":  "IgnitionOff")
-           }*/
         id: rectangle
         x:550
         y:175
@@ -535,17 +526,15 @@ Window {
         radius:60
         color:"black"
         CircularGauge {
-            id:fuelIndicator
+
             width:110
             height:115
-            value: ACC.fuelLevel
+            value: 0.5
             x:5
             y:5
-
+            id:fuelIndicator
             maximumValue:1
             minimumValue:0
-
-
 
             style: CircularGaugeStyle {
                 minimumValueAngle :-60
@@ -633,95 +622,12 @@ Window {
                 mySource2: "fuelwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.2
-                istatus: 1
+                istatus: true
             }
         }
-
     }//rectangle for fuel indicator
 
-    Column {
-        ProgressBar {
-            id:bar4
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.radarTime
-        }
-        ProgressBar {
-            id:bar5
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.accStatebutton
-        }
 
-    }
-
-
-    Image {
-        width: 10
-        height: 10
-        x:545
-        y:556
-        id: steeringwheel
-        source: "steerinwheel.png"
-        scale: 25
-    }
-    Image {
-        id: acc
-        x: 504
-        y: 536
-        source: "accbutton.jpg"
-        scale:0.4
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                ACC.accState
-            }
-        }
-    }
-    Image {
-        id: setp
-        x: 479
-        y: 512
-        width: 128
-        height: 65
-        source: "set+.jpg"
-        scale:0.2
-    }
-    Image {
-        id: setm
-        x: 479
-        y: 557
-        width: 128
-        height: 65
-        source: "set-.jpg"
-        scale:0.2
-    }
-    Image {
-        id: res
-        x: 522
-        y: 539
-        width: 104
-        height: 53
-        source: "res.jpg"
-        scale:0.3
-    }
-    Image {
-        id: cancel
-        x: 460
-        y: 540
-        sourceSize.width: 0
-        sourceSize.height: -6
-        fillMode: Image.Stretch
-        source: "canc.jpg"
-        scale:0.3
-    }
 
 }
-
-
-
-
-
 

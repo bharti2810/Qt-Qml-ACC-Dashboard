@@ -1,7 +1,6 @@
-
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.2 //added for Slider
+import QtQuick.Controls 2.2//added for Slider
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
@@ -9,77 +8,32 @@ import QtQuick.Extras.Private 1.0
 
 
 Window {
-    id: window
-    width:1100
-    height:700
     visible: true
-    color: "#d3d7cf"
-    property alias indexText: indexText
+    width: 3080
+    height: 2400
     title: qsTr("Hello World")
-    function updateRpm(val)//+//cpp to qml
-    {
-        console.log("Rpm changed:"+val);//++
-        tachoMeter.value=val//to get values without slider
-    }
-    function updateSpeed(val)//+//cpp to qml
-    {
-        console.log("Speed changed:"+val);//++
-        speedoMeter.value=val//to get values without slider
-    }
+
+
     Rectangle {
-        id: rectangle2
-        x:300
-        y:250
-        width:window.width*0.4
+        width:700
         height:200
         color:"black"
-        Indicator {
-            id: lindicator
-            x: 95
-            y: 2
-            mySource1: "left.jpg"
-            mySource2: "leftwhite.jpg"
-            scaleIndicatorOn:0.8
-            scaleIndicatorOff:0.8
-            istatus: 1
-        }
-
-        Indicator {
-            id: rindicator
-            x: 365
-            y: 2
-            mySource1: "right.jpg"
-            mySource2: "rightwhite.jpg"
-            scaleIndicatorOn:0.8
-            scaleIndicatorOff:0.9
-            istatus: 1
-        }
-
-
+        anchors.centerIn: parent
     }
-
-
     Rectangle {
-        id: rectangle1
-        width: 280
+        width:280
         height:280
         radius:140
         color:"black"
 
         border.color: "#FF9A00"
         border.width:3
-        x:143
-        y:215
-
+        x:220
+        y:225
+        //padding:50
         CircularGauge {
-            width: 272
-
-            anchors.top: parent.top
-            anchors.topMargin: 4
-            anchors.left: parent.left
-            anchors.leftMargin: 4
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 4
+            x:4
+            y:4
             id:speedoMeter
             //value: slider.value*140
             maximumValue:220
@@ -140,10 +94,11 @@ Window {
                 }
 
                 needle: Rectangle {
-                    y: outerRadius * 0.2
+                    y: outerRadius * 0.15
                     implicitWidth: outerRadius * 0.03
                     implicitHeight: outerRadius * 0.9
                     antialiasing: true
+                    // color: Qt.rgba(0.66, 0.3, 0, 1)
                     gradient: Gradient
                     {
                         GradientStop
@@ -191,75 +146,28 @@ Window {
             Text {
                 id: indexText
                 text: "MPH"
-                x:140
-                y:215
+                y:195
+                x:105
+                // anchors.horizontalCenter: parent.horizontalCenter
+                //anchors.bottom: valueText.top
                 color: "lightblue"
             }
             Text {
-                font.pixelSize: 12
                 id: valueText
-                x:75
-                y:240
-                text: "Km/hr"
-                //anchors.horizontalCenter: parent.horizontalCenter
-                //anchors.bottom: parent.bottom
+                text: "km/hr"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
                 color:"#e5e5e5"
 
-            }
-            Indicator {
-                id: ignition
-                x: 70
-                y: 60
-                width: 8
-                height: 0
-                mySource1: "Ignition.jpg"
-                mySource2: "Ignitionwhite.jpg"
-                scaleIndicatorOn:0.4
-                scaleIndicatorOff:0.4
-                istatus: 0
-            }
-            Indicator {
-                id: brake
-                x: 80
-                y: 15
-                width: 8
-                height: 0
-                mySource1: "Brake.jpg"
-                mySource2: "Brakewhite.jpg"
-                scaleIndicatorOn:0.17
-                scaleIndicatorOff:0.17
-                istatus: 0
-            }
-            Indicator {
-                id: cruise
-                x: 110
-                y: 70
-                width: 8
-                height: 0
-                mySource1: "CruiseOn.jpg"
-                mySource2: "CruiseOnwhite.jpg"
-                scaleIndicatorOn:0.23
-                scaleIndicatorOff:0.23
-                istatus: 0
-            }
-            Indicator {
-                id: abs
-                x: 75
-                y: 100
-                mySource1: "Speedlimiterwarn.jpg"
-                mySource2: "Speedlimiterwarnwhite.jpg"
-                scaleIndicatorOn:0.23
-                scaleIndicatorOff:0.23
-                istatus: 0
             }
 
 
         }//gauge
     }//rectangle speedometer
-    ////////////////////////////////////////////////////////////////////////
+
     Rectangle {
-        x:676
-        y:210
+        x:780
+        y:225
         width:280
         height:280
         radius:140
@@ -267,8 +175,8 @@ Window {
         border.width:3
         color:"black"
         CircularGauge {
-            x:6
-            y:3
+            x:4
+            y:4
             id:tachoMeter
             //value: slider.value*8
             maximumValue:8
@@ -283,7 +191,7 @@ Window {
                 }
                 needle: Rectangle {
 
-                    y: outerRadius * 0.2
+                    y: outerRadius * 0.15
                     implicitWidth: outerRadius * 0.03
                     implicitHeight: outerRadius * 0.9
                     antialiasing: true
@@ -331,91 +239,25 @@ Window {
                 }//item
 
             }
-            Text {
-                font.pixelSize: 12
-                id: valuerpmText
-                x:70
-                y:240
-                text: "rpm x1000"
-                color:"#e5e5e5"
-
-            }
-
-            Indicator {
-                id: headlight
-                x: 30
-                y: 60
-                mySource1: "Headlight.jpg"
-                mySource2: "DippedHeadlight.jpg"
-                scaleIndicatorOn:0.4
-                scaleIndicatorOff:0.4
-                istatus: 0
-            }
-
-
-            Indicator {
-                id: mil
-                x: 10
-                y: 100
-                mySource1: "MIL.jpg"
-                mySource2: "Milwhite.jpg"
-                scaleIndicatorOn:0.25
-                scaleIndicatorOff:0.25
-                istatus: 0
-            }
-
-            Indicator {
-                id: oil
-                x: 120
-                y: 60
-                mySource1: "Oil.jpg"
-                mySource2: "Oilwhite.jpg"
-                scaleIndicatorOn:0.25
-                scaleIndicatorOff:0.25
-                istatus: 0
-            }
-
-            Indicator {
-                id: seatbelt
-                x: 65
-                y: 10
-                mySource1: "seatbelt.jpg"
-                mySource2: "seatbeltwhite.jpg"
-                scaleIndicatorOn:0.25
-                scaleIndicatorOff:0.25
-                istatus: 0
-            }
-            Indicator {
-                id: hazard
-                x: 120
-                y: 25
-                mySource1: "hazard.jpg"
-                mySource2: "hazardwhite.jpg"
-                scaleIndicatorOn:0.33
-                scaleIndicatorOff:0.33
-                istatus: 0
-            }
-
         }
     }    //rectangle for tachometer
 
-    /////////////////////////////////////////////////////////////////////////////
+
     Rectangle {
-        x:424
+        x:500
         y:175
         border.color: "#FF9A00"
         border.width:3
-        width:120
-        height:120
-        radius:60
+        width:140
+        height:140
+        radius:70
         color:"black"
         CircularGauge {
 
-            width:110
-            height:110
-            value: ACC.engineTemperature
-            x:5
-            y:6
+            width:135
+            height:135
+            x:4
+            y:4
             id:tempIndicator
             //value: slider.value*8
             maximumValue:120
@@ -426,36 +268,18 @@ Window {
                 minimumValueAngle :-60
                 maximumValueAngle: 60
                 tickmarkStepSize : 30//default tick mark size is 10
-                tickmarkLabel: Text {
-                    font.pixelSize: 12
+                tickmarkLabel:  Text {
+                    font.pixelSize: 11
                     text: styleData.value
-                    color: styleData.value >= 100 ? "#FF9A00" : "#e5e5e5"
+                    color: styleData.value >= 160 ? "#FF9A00" : "#e5e5e5"
                     antialiasing: true
-                }
-                tickmark: Rectangle {
-
-                    visible: styleData.value < 120 || styleData.value % 10 == 0
-                    implicitWidth: outerRadius * 0.03
-                    antialiasing: true
-                    implicitHeight: outerRadius * 0.09
-                    color: styleData.value >= 90 ? "#FF9A00" : "#e5e5e5"
-                    Text{
-                        font.pixelSize: 70
-
-                    }
-                }
-                minorTickmark: Rectangle {
-                    visible: styleData.value < 120
-                    implicitWidth: outerRadius * 0.01
-                    antialiasing: true
-                    implicitHeight: outerRadius * 0.06
-                    color: "#e5e5e5"
                 }
                 needle: Rectangle {
-                    y: outerRadius * 0.25
-                    implicitWidth: outerRadius * 0.06
+                    y: outerRadius * 0.15
+                    implicitWidth: outerRadius * 0.03
                     implicitHeight: outerRadius * 0.9
                     antialiasing: true
+                    color: Qt.rgba(0.66, 0.3, 0, 1)
                     gradient: Gradient
                     {
                         GradientStop
@@ -495,56 +319,28 @@ Window {
                     }
                 }
             }
-            Indicator {
-                id: temp
-                x: -18
-                y: 22
-                width: 8
-                height: 0
-                mySource1: "temp.jpg"
-                mySource2: "tempwhite.jpg"
-                scaleIndicatorOn:0.28
-                scaleIndicatorOff:0.28
-                istatus: 1
-            }
-            Indicator {
-                id: celsius
-                x: 35
-                y: 27
-                mySource1: "celsiuswhite.jpg"
-                mySource2: "celsiuswhite.jpg"
-                scaleIndicatorOn:0.23
-                scaleIndicatorOff:0.23
-
-            }
         }
 
     } //rectangle for temp indicator
     Rectangle {
-        /*MouseArea {
-               anchors.fill: parent
-               onClicked: console.log( (ACC.ignitionState) ?  "IgnitionOn":  "IgnitionOff")
-           }*/
-        id: rectangle
-        x:550
+        x:650
         y:175
         border.color: "#FF9A00"
         border.width:3
-        width:120
-        height:120
-        radius:60
+        width:140
+        height:140
+        radius:70
         color:"black"
         CircularGauge {
-            id:fuelIndicator
-            width:110
-            height:115
-            value: ACC.fuelLevel
-            x:5
-            y:5
 
+            width:135
+            height:135
+            x:4
+            y:4
+            id:fuelIndicator
+            //value: slider.value*8
             maximumValue:1
             minimumValue:0
-
 
 
             style: CircularGaugeStyle {
@@ -552,35 +348,17 @@ Window {
                 maximumValueAngle: 60
                 tickmarkStepSize : 0.5
                 tickmarkLabel:  Text {
-                    font.pixelSize: 13
+                    font.pixelSize: 11
                     text: styleData.value
-                    color: styleData.value <= 0 ? "#FF9A00" : "#e5e5e5"
+                    color: styleData.value >= 160 ? "#FF9A00" : "#e5e5e5"
                     antialiasing: true
-                }
-                tickmark: Rectangle {
-
-                    visible: styleData.value <=1 || styleData.value % 10 == 0
-                    implicitWidth: outerRadius * 0.03
-                    antialiasing: true
-                    implicitHeight: outerRadius * 0.09
-                    color: styleData.value <= 0 ? "#FF9A00" : "#e5e5e5"
-                    Text{
-                        font.pixelSize: 70
-
-                    }
-                }
-                minorTickmark: Rectangle {
-                    visible: styleData.value < 1
-                    implicitWidth: outerRadius * 0.01
-                    antialiasing: true
-                    implicitHeight: outerRadius * 0.06
-                    color: "#e5e5e5"
                 }
                 needle: Rectangle {
-                    y: outerRadius * 0.25
-                    implicitWidth: outerRadius * 0.06
+                    y: outerRadius * 0.15
+                    implicitWidth: outerRadius * 0.03
                     implicitHeight: outerRadius * 0.9
                     antialiasing: true
+                    color: Qt.rgba(0.66, 0.3, 0, 1)
                     gradient: Gradient
                     {
                         GradientStop
@@ -622,106 +400,32 @@ Window {
                     }
                 }
             }
-
-            Indicator {
-                id: fuel
-                x: 40
-                y: 20
-                width: 8
-                height: 0
-                mySource1: "fuel.jpg"
-                mySource2: "fuelwhite.jpg"
-                scaleIndicatorOn:0.25
-                scaleIndicatorOff:0.2
-                istatus: 1
-            }
         }
-
     }//rectangle for fuel indicator
 
-    Column {
-        ProgressBar {
-            id:bar4
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.radarTime
-        }
-        ProgressBar {
-            id:bar5
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.accStatebutton
-        }
-
+    Indicator
+    {
+        id:fuel
+        x:20
+        y:20
+        mySource1:"index.png"
+        mySource2:"images.png"
     }
 
+    Timer{
+        id:timer
+        running:true
+        repeat:true
+        interval:5000
+        onTriggered:
+        {
+            if(Indicator.target==="img1")
+                Indicator.target="img2"
 
-    Image {
-        width: 10
-        height: 10
-        x:545
-        y:556
-        id: steeringwheel
-        source: "steerinwheel.png"
-        scale: 25
-    }
-    Image {
-        id: acc
-        x: 504
-        y: 536
-        source: "accbutton.jpg"
-        scale:0.4
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                ACC.accState
-            }
+            else
+                Indicator.target="img1"
         }
-    }
-    Image {
-        id: setp
-        x: 479
-        y: 512
-        width: 128
-        height: 65
-        source: "set+.jpg"
-        scale:0.2
-    }
-    Image {
-        id: setm
-        x: 479
-        y: 557
-        width: 128
-        height: 65
-        source: "set-.jpg"
-        scale:0.2
-    }
-    Image {
-        id: res
-        x: 522
-        y: 539
-        width: 104
-        height: 53
-        source: "res.jpg"
-        scale:0.3
-    }
-    Image {
-        id: cancel
-        x: 460
-        y: 540
-        sourceSize.width: 0
-        sourceSize.height: -6
-        fillMode: Image.Stretch
-        source: "canc.jpg"
-        scale:0.3
     }
 
 }
-
-
-
-
-
 

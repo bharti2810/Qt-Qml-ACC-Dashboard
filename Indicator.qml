@@ -1,10 +1,16 @@
+
 import QtQuick 2.0
 
 Rectangle{
     property alias mySource1:img1.source
     property alias mySource2:img2.source
     property int istatus
+    property alias scaleIndicatorOn:img1.scale
+     property alias scaleIndicatorOff:img2.scale
+    property alias img1: img1
 
+    smooth: true
+    antialiasing: false
 //property var stateOn
 //property var stateOff
 
@@ -22,13 +28,14 @@ Rectangle{
         State{
 
             name:"IgnitionOn"//1
-            PropertyChanges { target: img1;source:mySource1;scale: 0.15; opacity: istatus}
-            PropertyChanges { target: img2;source:mySource2; scale: 0.15; opacity:!(istatus)}
+            PropertyChanges { target: img1;source:mySource1;scale: scaleIndicatorOn; opacity: istatus}
+            PropertyChanges { target: img2;source:mySource2; scale: scaleIndicatorOff; opacity:!(istatus)}
         },
         State{
             name:"IgnitionOff"//0
-            PropertyChanges { target: img1;source:mySource1; scale: 0.8; opacity: 0}
-            PropertyChanges { target: img2;source:mySource2; scale: 0.8; opacity: 1}
+            PropertyChanges { target: img1;source:mySource1;scale: scaleIndicatorOn; opacity: 0}
+            PropertyChanges { target: img2;source:mySource2; scale: scaleIndicatorOff; opacity:1}
+
         }
     ]
 
@@ -49,21 +56,19 @@ Rectangle{
          smooth: true
         id: img1
         source:mySource1
-       // opacity: fuelstatus
-        //opacity: 0
-       //anchors.fill: img2
+        scale:scaleIndicatorOn
+
     }
     Image {
          smooth: true
         id: img2
         source:mySource2
-       // opacity: fuelstatus
+        scale:scaleIndicatorOff
 
-      //  opacity: 1
-       // anchors.fill: img1
 
     }
 }
+
 
 
 
