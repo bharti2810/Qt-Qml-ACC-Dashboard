@@ -27,9 +27,6 @@ int main(int argc, char *argv[])
     //QObject::connect(qmlwindow,SIGNAL(volumeChanged(QVariant)),&radar,SLOT(onVolumeChanged(QVariant)));//++//for qml to cpp
    // QObject::connect(&a1,SIGNAL(rpmChanged(QVariant)),qmlwindow,SLOT(updateRpm(QVariant)));//++//cpp to qml
 
-
-
-
     //code for dbus
      ACC a1;
     engine.rootContext()->setContextProperty("ACC", &a1);
