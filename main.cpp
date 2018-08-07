@@ -34,12 +34,12 @@ int main(int argc, char *argv[])
      ACC a1;
     engine.rootContext()->setContextProperty("ACC", &a1);
     a1.setIgnitionState(1);
-    a1.setEngineTemperature(110);
+    a1.setEngineTemperature(100);
     a1.setFuelLevel(1);
-    a1.setRadarTime(10);
+    a1.setRadarTime(40);
     a1.setAccState(1);
-    a1.setBreakSwitch1State(1);
-    a1.setBreakSwitch1State(1);
+    a1.setBreakSwitch1State(0);
+    a1.setBreakSwitch1State(0);
     QDBusConnection::sessionBus().isConnected();
     QDBusConnection::sessionBus().registerService(SERVICE_NAME);
     QDBusConnection::sessionBus().registerObject("/ACC",

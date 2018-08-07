@@ -5,6 +5,8 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
 import QtQuick.Extras.Private 1.0
+import QtGraphicalEffects 1.0
+import QtMultimedia 5.8
 
 
 Window {
@@ -14,63 +16,15 @@ Window {
     visible: true
     color: "#d3d7cf"
     title: qsTr("Hello World")
-    function updateRpm(val)//+//cpp to qml
-    {
-        console.log("Rpm changed:"+val);//++
-        if(ACC.ignitionState)
-        {
-            tachoMeter.value=val//to get values without slider
-        }
-        else
-        {
-            tachoMeter.value=0
-        }
-    }
-    function updateSpeed(val)//+//cpp to qml
-    {
-        speedValue.text=Math.round(val)
-        console.log("Speed changed:"+val);//++
+    property int speed
+    property int chngspeed
+    Image {
+        width:1400
+        height:1000
+          source: "background.jpg"
 
-        if(ACC.ignitionState)
-        {
-            speedoMeter.value=val//to get values without slider
-            if (val<160)
-            {
-                abs.istatus=0
-            }
-            else
-            {
-                abs.istatus=1
-            }
-        }
-        else
-        {
-            speedoMeter.value=0
-        }
-    }
-    function updateDistance(val)
-    {
-        console.log("Distance changed:"+val);//++
-        if(ACC.ignitionState)
-        {
-            if(val<3)
-            {image1.visible=false
-            image2.visible=false
-            }
-        else
-            {image1.visible=true
-             image2.visible=true
-            }
-    }
-        else
-        {
-            image1.visible=false
-            image2.visible=false
-            image3.visible=false
-            image4.visible=false
-            image5.visible=false
-        }
-}
+       }
+
     Text{
         id:speedValue
         x:522
@@ -98,14 +52,21 @@ Window {
         width:window.width*0.4
         height:200
         color:"black"
-        Image{
 
+        Image{
+            id:carlane
             x: 144
             y: 0
             height:200
             visible: (ACC.ignitionState) ? true : false
             width:243
             source:"carLane.png"
+           /* Timer {
+                    interval: 500; running: true; repeat: true
+                    onTriggered: carlane.rotation = Date().toString()
+                }*/
+
+
         }
         Image{
             id: image1
@@ -169,6 +130,7 @@ Window {
             visible: true
             scale:0.5
             source:"screen2.png"
+            rotation:steeringwheel.rotation
         }
 
         Indicator {
@@ -194,14 +156,16 @@ Window {
         Keys.onLeftPressed:
         {
             lindicator.istatus = 1;
+            steeringwheel.rotation=-30
         }
         Keys.onRightPressed:
         {
             rindicator.istatus = 1;
+            steeringwheel.rotation=+30
         }
 
         Keys.onReleased:
-        {
+        {steeringwheel.rotation=0
             lindicator.istatus = 0;
             rindicator.istatus = 0;
         }
@@ -390,7 +354,7 @@ Window {
                 mySource2: "CruiseOnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: ACC.accState
+                // istatus: ACC.accState
             }
             Indicator {
                 id: abs
@@ -517,7 +481,7 @@ Window {
                 mySource2: "DippedHeadlight.jpg"
                 scaleIndicatorOn:0.4
                 scaleIndicatorOff:0.4
-                istatus: 0
+                istatus: 1
             }
 
 
@@ -530,7 +494,7 @@ Window {
                 mySource2: "Milwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: 1
             }
 
             Indicator {
@@ -542,7 +506,7 @@ Window {
                 mySource2: "Oilwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: 1
             }
 
             Indicator {
@@ -554,7 +518,7 @@ Window {
                 mySource2: "seatbeltwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.25
-                istatus: 0
+                istatus: 1
             }
             Indicator {
                 id: hazard
@@ -565,7 +529,7 @@ Window {
                 mySource2: "hazardwhite.jpg"
                 scaleIndicatorOn:0.33
                 scaleIndicatorOff:0.33
-                istatus: 0
+                istatus: 1
             }
 
         }
@@ -813,94 +777,173 @@ Window {
         }
     }//rectangle for fuel indicator
 
-    /* Column {
-         ProgressBar {
-             id:bar4
-             to: 100
-             width: 200
-             height: 40
-             value: ACC.radarTime
-         }
-         ProgressBar {
-             id:bar5
-             to: 100
-             width: 200
-             height: 40
-             value: ACC.accStatebutton
-         }
 
-     }*/
-
-
-     Image {
-         width: 10
-         height: 10
-         x:545
-         y:556
-         id: steeringwheel
-         source: "steerinwheel.png"
-         scale: 25
-     }
-     Image {
-         id: acc
-         x: 504
-         y: 536
-         source: "accbutton.jpg"
-         scale:0.4
-         MouseArea {
-             anchors.fill: parent
-             onClicked: {
+    Image {
+        width: 10
+        height: 10
+        x:545
+        y:556
+        id: steeringwheel
+        source: "steerinwheel.png"
+        scale: 25
+    }
+    Image {
+        id: acc
+        x: 504
+        y: 536
+        source: "accbutton.jpg"
+        scale:0.4
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
                 if( ACC.accState)
                 {
-                   ACC.accState=0;
+                    ACC.accState=0;
                 }
                 else
                     ACC.accState=1;
-             }
-         }
-     }
-     Image {
-         id: setp
-         x: 479
-         y: 512
-         width: 128
-         height: 65
-         source: "set+.jpg"
-         scale:0.2
-     }
-     Image {
-         id: setm
-         x: 479
-         y: 557
-         width: 128
-         height: 65
-         source: "set-.jpg"
-         scale:0.2
-     }
-     Image {
-         id: res
-         x: 522
-         y: 539
-         width: 104
-         height: 53
-         source: "res.jpg"
-         scale:0.3
-     }
-     Image {
-         id: cancel
-         x: 460
-         y: 540
-         sourceSize.width: 0
-         sourceSize.height: -6
-         fillMode: Image.Stretch
-         source: "canc.jpg"
-         scale:0.3
-     }
+            }
+        }
+    }
+    Image {
+        id: setp
+        x: 479
+        y: 512
+        width: 128
+        height: 65
+        source: "set+.jpg"
+        scale:0.2
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                chngspeed=++speed;
+                console.log("speed by set"+chngspeed)
+            }
+        }
+
+    }
+    Image {
+        id: setm
+        x: 479
+        y: 557
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                chngspeed=--speed;
+                console.log("speed by set"+chngspeed)
+            }
+
+        }
+
+        width: 128
+        height: 65
+        source: "set-.jpg"
+        scale:0.2
+    }
+    Image {
+        id: res
+        x: 522
+        y: 539
+        width: 104
+        height: 53
+        source: "res.jpg"
+        scale:0.3
+    }
+    Image {
+        id: cancel
+        x: 460
+        y: 540
+        sourceSize.width: 0
+        sourceSize.height: -6
+        fillMode: Image.Stretch
+        source: "canc.jpg"
+        scale:0.3
+    }
+
+    function updateRpm(val)//+//cpp to qml
+    {
+        console.log("Rpm changed:"+val);//++
+        if(ACC.ignitionState)
+        {
+            tachoMeter.value=val//to get values without slider
+        }
+        else
+        {
+            tachoMeter.value=0
+        }
+    }
 
 
+    function updateSpeed(val)//+//cpp to qml
+    { if(chngspeed)
+            speedValue.text=chngspeed
+        else
+            speedValue.text=speed
+        console.log("Speed changed:"+val);//++
+
+        if(ACC.ignitionState)
+        {
+            speedoMeter.value=val//to get values without slider
+            if (val<160)
+            {
+                abs.istatus=0
+            }
+            else
+            {
+                abs.istatus=1
+            }
+
+        }
+        else
+        {
+            speedoMeter.value=0
+        }
+        if(ACC.breakSwitch1State)
+        { if( ACC.breakSwitch2State)
+            { if(ACC.onSpeedChanged() <25)
+                {cruise.istatus=0
+                    console.log("status"+cruise.istatus)
+                }
 
 
+            }
+        }
+        else{
+            cruise.istatus=ACC.accState
+        }
+        speed=val;
 
+        /* setp.mouseClicked: {
+                        increase();
+                    }*/
+
+
+    }
+
+
+    function updateDistance(val)
+    {
+        console.log("Distance changed:"+val);//++
+        if(ACC.ignitionState)
+        {
+            if(val<3)
+            {image1.visible=false
+                image2.visible=false
+            }
+            else
+            {image1.visible=true
+                image2.visible=true
+            }
+        }
+        else
+        {
+            image1.visible=false
+            image2.visible=false
+            image3.visible=false
+            image4.visible=false
+            image5.visible=false
+        }
+    }
 }
 
 
