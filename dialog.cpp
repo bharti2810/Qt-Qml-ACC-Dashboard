@@ -10,7 +10,8 @@ dialog::dialog(QObject *parent) : QObject(parent)
     connect(m_acc,SIGNAL(fuelLevelChanged(int)),this,SLOT(onFuelLevelChanged(int)));
     connect(m_acc,SIGNAL(radarTimeChanged(int)),this,SLOT(onRadarTimeChanged(int)));
     connect(m_acc,SIGNAL(accStateChanged(bool)),this,SLOT(onAccStateChanged(bool)));
-    connect(m_acc,SIGNAL(fractionOfThrottleOpeningChanged(float)),this,SLOT(onFractionOfThrottleOpeningChanged(float)));
+    connect(m_acc,SIGNAL(breakSwitch1Changed(bool)),this,SLOT(onBreakSwitch1Changed(bool)));
+    connect(m_acc,SIGNAL(breakSwitch2Changed(bool)),this,SLOT(onBreakSwitch2Changed(bool)));
 }
 void dialog::onIgnitionStateChanged(bool enginestate)
 {
@@ -37,7 +38,12 @@ void dialog::onAccStateChanged(bool accstate)
     qDebug() << "ACC State Updated: " << accstate << "\n";
 }
 //////////////////////////////////////
-void dialog::onFractionOfThrottleOpeningChanged(float throttlestate)
+void dialog::onBreakSwitch1Changed(bool breakSwitch1)
 {
-    qDebug() << "Throttle position Changed: " << throttlestate << "\n";
+    qDebug() << "Brake 1 State changed: " << breakSwitch1 << "\n";
+}
+///////////////////////////////////////
+void dialog::onBreakSwitch2Changed(bool breakSwitch2)
+{
+    qDebug() << "Brake 2 State changed: " << breakSwitch2 << "\n";
 }

@@ -1,7 +1,6 @@
-
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.2 //added for Slider
+import QtQuick.Controls 2.2//added for Slider
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
@@ -14,7 +13,6 @@ Window {
     height:700
     visible: true
     color: "#d3d7cf"
-    property alias indexText: indexText
     title: qsTr("Hello World")
     function updateRpm(val)//+//cpp to qml
     {
@@ -146,6 +144,7 @@ Window {
             scale:0.5
             source:"screen2.png"
         }
+
         Indicator {
             id: lindicator
             x: 95
@@ -154,7 +153,6 @@ Window {
             mySource2: "leftwhite.jpg"
             scaleIndicatorOn:0.8
             scaleIndicatorOff:0.8
-            istatus: 1
         }
 
         Indicator {
@@ -181,9 +179,7 @@ Window {
             lindicator.istatus = 0;
             rindicator.istatus = 0;
         }
-
     }
-
 
     Rectangle {
         id: rectangle1
@@ -199,7 +195,6 @@ Window {
 
         CircularGauge {
             width: 272
-
             id:speedoMeter
             anchors.top: parent.top
             anchors.topMargin: 4
@@ -208,7 +203,6 @@ Window {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 4
 
-            //value: slider.value*140
             maximumValue:220
             style: CircularGaugeStyle {
                 tickmarkStepSize : 20
@@ -345,15 +339,14 @@ Window {
                 scaleIndicatorOn:0.4
                 scaleIndicatorOff:0.4
                 istatus: ACC.ignitionState
-
             }
             Indicator {
                 id: brake
                 x: 75
                 y: 13
                 width: 8
-                z: -2
                 height: 0
+                z: -2
                 mySource1: "Brake.jpg"
                 mySource2: "Brakewhite.jpg"
                 scaleIndicatorOn:0.17
@@ -377,12 +370,12 @@ Window {
                 id: abs
                 x: 75
                 y: 100
-                  z: -4
+                z: -4
                 mySource1: "Speedlimiterwarn.jpg"
                 mySource2: "Speedlimiterwarnwhite.jpg"
                 scaleIndicatorOn:0.23
                 scaleIndicatorOff:0.23
-                istatus: 0
+
             }
 
 
@@ -403,7 +396,6 @@ Window {
             y:3
             id:tachoMeter
             //value: slider.value*8
-
             maximumValue:10
             style: CircularGaugeStyle {
                 tickmarkStepSize : 1//default tick mark size is 10
@@ -494,7 +486,7 @@ Window {
                 id: headlight
                 x: 30
                 y: 60
-                 z: -1
+                z: -1
                 mySource1: "Headlight.jpg"
                 mySource2: "DippedHeadlight.jpg"
                 scaleIndicatorOn:0.4
@@ -507,7 +499,7 @@ Window {
                 id: mil
                 x: 10
                 y: 100
-                 z: -2
+                z: -2
                 mySource1: "MIL.jpg"
                 mySource2: "Milwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -519,7 +511,7 @@ Window {
                 id: oil
                 x: 120
                 y: 60
-                z:-3
+                z: -3
                 mySource1: "Oil.jpg"
                 mySource2: "Oilwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -542,7 +534,7 @@ Window {
                 id: hazard
                 x: 120
                 y: 25
-                 z: -5
+                z: -5
                 mySource1: "hazard.jpg"
                 mySource2: "hazardwhite.jpg"
                 scaleIndicatorOn:0.33
@@ -655,12 +647,12 @@ Window {
                 y: 22
                 width: 8
                 height: 0
-                 z: -1
+                z: -1
                 mySource1: "temp.jpg"
                 mySource2: "tempwhite.jpg"
                 scaleIndicatorOn:0.28
                 scaleIndicatorOff:0.28
-                istatus: 1
+                istatus: (ACC.engineTemperature > 90) ? 1 : 0
             }
             Indicator {
                 id: celsius
@@ -694,7 +686,7 @@ Window {
             id:fuelIndicator
             width:110
             height:115
-            value: ACC.fuelLevel
+            value: (ACC.ignitionState) ? ACC.fuelLevel : 0
             x:5
             y:5
 
@@ -785,105 +777,22 @@ Window {
                 y: 20
                 width: 8
                 height: 0
-                 z: -1
+                z: -1
                 mySource1: "fuel.jpg"
                 mySource2: "fuelwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.2
-               istatus: !(ACC.fuelLevel)
+                istatus: !(ACC.fuelLevel)
             }
         }
-
     }//rectangle for fuel indicator
 
-   /* Column {
-        ProgressBar {
-            id:bar4
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.radarTime
-        }
-        ProgressBar {
-            id:bar5
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.accStatebutton
-        }
-
-    }*/
 
 
-    Image {
-        width: 10
-        height: 10
-        x:545
-        y:556
-        id: steeringwheel
-        source: "steerinwheel.png"
-        scale: 25
-    }
-    Image {
-        id: acc
-        x: 504
-        y: 536
-        source: "accbutton.jpg"
-        scale:0.4
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-               if( ACC.accState)
-               {
-                  ACC.accState=0;
-               }
-               else
-                   ACC.accState=1;
-            }
-        }
-    }
-    Image {
-        id: setp
-        x: 479
-        y: 512
-        width: 128
-        height: 65
-        source: "set+.jpg"
-        scale:0.2
-    }
-    Image {
-        id: setm
-        x: 479
-        y: 557
-        width: 128
-        height: 65
-        source: "set-.jpg"
-        scale:0.2
-    }
-    Image {
-        id: res
-        x: 522
-        y: 539
-        width: 104
-        height: 53
-        source: "res.jpg"
-        scale:0.3
-    }
-    Image {
-        id: cancel
-        x: 460
-        y: 540
-        sourceSize.width: 0
-        sourceSize.height: -6
-        fillMode: Image.Stretch
-        source: "canc.jpg"
-        scale:0.3
-    }
+
+
+
 
 }
-
-
-
-
 
 

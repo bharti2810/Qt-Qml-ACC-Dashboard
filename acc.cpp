@@ -57,27 +57,31 @@ void ACC::setAccState(bool value)
     emit accStateChanged(m_ACCState);
 }
 //////////////////////////////////////////////
-float ACC::fractionOfThrottleOpening() const
+bool ACC::breakSwitch1State() const
 {
-    return m_fractionOfThrottleOpening;
+    return m_breakSwitch1State;
 }
-void ACC::setFractionOfThrottleOpening(float value)
+void ACC::setBreakSwitch1State(bool value)
 {
-    m_fractionOfThrottleOpening=value;
-    emit fractionOfThrottleOpeningChanged(m_fractionOfThrottleOpening);
+    m_breakSwitch1State=value;
+    emit breakSwitch1Changed(m_breakSwitch1State);
 }
 ///////////////////////////////////////////////
-float ACC::getRpm()
+bool ACC::breakSwitch2State() const
 {
-    m_rpm= THROTTLE_MAX *fractionOfThrottleOpening();
-    m_rpm/=10;
-    return m_rpm;
+    return m_breakSwitch2State;
 }
+void ACC::setBreakSwitch2State(bool value)
+{
+    m_breakSwitch2State=value;
+    emit breakSwitch2Changed(m_breakSwitch2State);
+}
+//////////////////////////////////////
 
 void ACC::onRpmChanged()
 {
 
-    qDebug() << fractionOfThrottleOpening() ;
+    //qDebug() << fractionOfThrottleOpening() ;
     emit rpmChanged(QVariant(getRpm()));//+
 }
 void ACC::onSpeedChanged() {
@@ -89,3 +93,9 @@ void ACC::onSpeedChanged() {
 
   emit speedChanged(QVariant(m_speed));//+
   }
+float ACC::getRpm()
+{
+    m_rpm= THROTTLE_MAX *5;
+    m_rpm/=10;
+    return m_rpm;
+}

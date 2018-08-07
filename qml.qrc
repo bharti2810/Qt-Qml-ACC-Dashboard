@@ -37,5 +37,7 @@
         <file>acc.cpp</file>
         <file>set-.jpg</file>
         <file>set+.jpg</file>
+        <file>main3.qml</file>
+        <file>carLane.png</file>
     </qresource>
 </RCC>

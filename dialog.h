@@ -20,7 +20,8 @@ public slots:
     void onFuelLevelChanged(int);
     void onRadarTimeChanged(int);
     void onAccStateChanged(bool);
-    void onFractionOfThrottleOpeningChanged(float);
+    void onBreakSwitch1Changed(bool);
+    void onBreakSwitch2Changed(bool);
 
 private:
      ACC *m_acc;

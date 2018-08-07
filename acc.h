@@ -14,7 +14,9 @@ class ACC : public QObject
     Q_PROPERTY(int fuelLevel READ fuelLevel WRITE setFuelLevel NOTIFY fuelLevelChanged)
     Q_PROPERTY(int radarTime READ radarTime WRITE setRadarTime NOTIFY radarTimeChanged)
     Q_PROPERTY(bool accState READ accState WRITE setAccState NOTIFY accStateChanged)
-    Q_PROPERTY(float fractionOfThrottleOpening READ fractionOfThrottleOpening WRITE setFractionOfThrottleOpening NOTIFY fractionOfThrottleOpeningChanged)
+    Q_PROPERTY(bool breakSwitch1State READ breakSwitch1State WRITE setBreakSwitch1State NOTIFY breakSwitch1Changed)
+    Q_PROPERTY(bool breakSwitch2State READ breakSwitch2State WRITE setBreakSwitch2State NOTIFY breakSwitch2Changed)
+
 public:
     explicit ACC(QObject *parent = nullptr);
     bool ignitionState() const;
@@ -27,19 +29,23 @@ public:
     void setRadarTime(int);
     bool accState() const;
     void setAccState(bool);
-    float fractionOfThrottleOpening() const;
-    void setFractionOfThrottleOpening(float);
-     float getRpm();
+    float getRpm();
+    bool breakSwitch1State() const;
+    void  setBreakSwitch1State(bool);
+    bool breakSwitch2State() const;
+    void  setBreakSwitch2State(bool);
+
 
 signals:
-     void ignitionStateChanged(bool);
-     void engineTemperatureChanged(int);
-     void fuelLevelChanged(int);
-     void radarTimeChanged(int);
-     void accStateChanged(bool);
-     void fractionOfThrottleOpeningChanged(float);
-     void rpmChanged(QVariant);
-     void speedChanged(QVariant);
+    void ignitionStateChanged(bool);
+    void engineTemperatureChanged(int);
+    void fuelLevelChanged(int);
+    void radarTimeChanged(int);
+    void accStateChanged(bool);
+    void breakSwitch1Changed(bool);
+    void breakSwitch2Changed(bool);
+    void rpmChanged(QVariant);
+    void speedChanged(QVariant);
 
 
 public slots:
@@ -52,6 +58,8 @@ private:
     int m_fuelLevel;
     int m_radarTime;
     bool m_ACCState;
+    bool m_breakSwitch1State;
+    bool m_breakSwitch2State;
     float m_fractionOfThrottleOpening;
     float m_rpm;
     float THROTTLE_MAX=80;
