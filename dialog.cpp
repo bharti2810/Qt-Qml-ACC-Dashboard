@@ -10,7 +10,7 @@ dialog::dialog(QObject *parent) : QObject(parent)
     connect(m_acc,SIGNAL(fuelLevelChanged(int)),this,SLOT(onFuelLevelChanged(int)));
     connect(m_acc,SIGNAL(radarTimeChanged(int)),this,SLOT(onRadarTimeChanged(int)));
     connect(m_acc,SIGNAL(accStateChanged(bool)),this,SLOT(onAccStateChanged(bool)));
-    connect(m_acc,SIGNAL(fractionOfThrottleOpeningChanged(float)),this,SLOT(onFractionOfThrottleOpeningChanged(float)));
+
 }
 void dialog::onIgnitionStateChanged(bool enginestate)
 {
@@ -36,8 +36,4 @@ void dialog::onAccStateChanged(bool accstate)
 {
     qDebug() << "ACC State Updated: " << accstate << "\n";
 }
-//////////////////////////////////////
-void dialog::onFractionOfThrottleOpeningChanged(float throttlestate)
-{
-    qDebug() << "Throttle position Changed: " << throttlestate << "\n";
-}
+

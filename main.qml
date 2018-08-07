@@ -48,6 +48,29 @@ Window {
             speedoMeter.value=0
         }
     }
+    function updateDistance(val)
+    {
+        console.log("Distance changed:"+val);//++
+        if(ACC.ignitionState)
+        {
+            if(val<3)
+            {image1.visible=false
+            image2.visible=false
+            }
+        else
+            {image1.visible=true
+             image2.visible=true
+            }
+    }
+        else
+        {
+            image1.visible=false
+            image2.visible=false
+            image3.visible=false
+            image4.visible=false
+            image5.visible=false
+        }
+}
     Text{
         id:speedValue
         x:522
@@ -56,6 +79,7 @@ Window {
         font.pixelSize: 28
         color:"white"
         z: 1
+        visible: (ACC.ignitionState) ? true : false
     }
     Text {
         id:km
@@ -65,6 +89,7 @@ Window {
         z: 2
         font.pixelSize: 13
         color:"white"
+        visible: (ACC.ignitionState) ? true : false
     }
     Rectangle {
         id: rectangle2
@@ -78,51 +103,52 @@ Window {
             x: 144
             y: 0
             height:200
-            visible: true
+            visible: (ACC.ignitionState) ? true : false
             width:243
             source:"carLane.png"
         }
         Image{
+            id: image1
             x: 206
             y: 60
             width: 81
-            visible: true
             scale:0.32
             source:"trap1.png"
+
         }
         Image{
+            id: image2
             x: 200
             y: 70
             width: 93
             height: 16
-            visible: true
             scale:0.32
             source:"trap2.png"
         }
         Image{
+            id: image3
             x: 188
             y: 80
             width: 118
             height: 20
-            visible: true
             scale:0.32
             source:"trap3.png"
         }
         Image{
+            id: image4
             x: 176
             y: 92
             width: 142
             height: 21
-            visible: true
             scale:0.32
             source:"trap3.png"
         }
         Image{
+            id: image5
             x: 164
             y: 105
             width: 167
             height: 22
-            visible: true
             scale:0.32
             source:"trap3.png"
         }

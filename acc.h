@@ -14,7 +14,6 @@ class ACC : public QObject
     Q_PROPERTY(int fuelLevel READ fuelLevel WRITE setFuelLevel NOTIFY fuelLevelChanged)
     Q_PROPERTY(int radarTime READ radarTime WRITE setRadarTime NOTIFY radarTimeChanged)
     Q_PROPERTY(bool accState READ accState WRITE setAccState NOTIFY accStateChanged)
-    Q_PROPERTY(float fractionOfThrottleOpening READ fractionOfThrottleOpening WRITE setFractionOfThrottleOpening NOTIFY fractionOfThrottleOpeningChanged)
 public:
     explicit ACC(QObject *parent = nullptr);
     bool ignitionState() const;
@@ -27,8 +26,6 @@ public:
     void setRadarTime(int);
     bool accState() const;
     void setAccState(bool);
-    float fractionOfThrottleOpening() const;
-    void setFractionOfThrottleOpening(float);
     float getRpm();
     float getDistance();
 
@@ -38,14 +35,15 @@ signals:
      void fuelLevelChanged(int);
      void radarTimeChanged(int);
      void accStateChanged(bool);
-     void fractionOfThrottleOpeningChanged(float);
      void rpmChanged(QVariant);
      void speedChanged(QVariant);
+     void distanceChanged(QVariant);
 
 
 public slots:
     void onRpmChanged();
     void onSpeedChanged();
+    void onDistanceChanged();
 
 private:
     bool m_ignitionState;
@@ -53,14 +51,12 @@ private:
     int m_fuelLevel;
     int m_radarTime;
     bool m_ACCState;
-    float m_fractionOfThrottleOpening;
     float m_rpm;
-   // float THROTTLE_MAX=80;
     float velocity_of_sound=0.277777778;
     float circumference = 0.2096;
     QTimer *timer;//++
     float m_speed;
-    int distance;
+    int m_distance;
     float getSpeed();
 };
 

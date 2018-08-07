@@ -5,6 +5,7 @@ ACC::ACC(QObject *parent) : QObject(parent)
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(onRpmChanged()));//+//commented for DBus
     connect(timer,SIGNAL(timeout()),this,SLOT(onSpeedChanged()));//+//commented for DBus
+    connect(timer,SIGNAL(timeout()),this,SLOT(onDistanceChanged()));//+//commented for DBus
     timer->start(2000);//+//commented for DBus
 }
 bool ACC::ignitionState() const
@@ -57,16 +58,6 @@ void ACC::setAccState(bool value)
     emit accStateChanged(m_ACCState);
 }
 //////////////////////////////////////////////
-float ACC::fractionOfThrottleOpening() const
-{
-    return m_fractionOfThrottleOpening;
-}
-void ACC::setFractionOfThrottleOpening(float value)
-{
-    m_fractionOfThrottleOpening=value;
-    emit fractionOfThrottleOpeningChanged(m_fractionOfThrottleOpening);
-}
-///////////////////////////////////////////////
 /*float ACC::getRpm()
 {
    // m_rpm= THROTTLE_MAX *fractionOfThrottleOpening();
@@ -76,15 +67,19 @@ void ACC::setFractionOfThrottleOpening(float value)
     return m_rpm;
 }*/
 
-
 float ACC::getDistance()
 {
-    distance = (radarTime()*velocity_of_sound);
-            distance/=2;
-    qDebug() << "distance"<<distance ;
-    return distance;
+    m_distance = (radarTime()*velocity_of_sound);
+            m_distance/=2;
+    qDebug() << "distance/"<<m_distance ;
+    return m_distance;
 }
-
+void ACC::onDistanceChanged()
+{
+     qDebug() << "distance=" << getDistance() ;
+    emit distanceChanged(QVariant(m_distance));//+
+}
+///////////////////////////////////////////////
 float ACC::getSpeed()
 {
     m_speed=getDistance()*radarTime();
@@ -94,8 +89,8 @@ void ACC::onSpeedChanged() {
 
      qDebug() << "speed=" << getSpeed() ;
     emit speedChanged(QVariant(getSpeed()));//+
-
 }
+//////////////////////////////////////////////
 void ACC::onRpmChanged()
 {   m_rpm= (getSpeed()*12)/circumference;
     m_rpm=m_rpm/1000;

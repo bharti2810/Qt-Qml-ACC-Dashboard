@@ -36,8 +36,7 @@ int main(int argc, char *argv[])
     a1.setIgnitionState(1);
     a1.setEngineTemperature(110);
     a1.setFuelLevel(1);
-    a1.setFractionOfThrottleOpening(1.2);
-    a1.setRadarTime(15);
+    a1.setRadarTime(40);
     a1.setAccState(1);
     QDBusConnection::sessionBus().isConnected();
     QDBusConnection::sessionBus().registerService(SERVICE_NAME);
@@ -46,7 +45,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(&a1,SIGNAL(rpmChanged(QVariant)),qmlwindow,SLOT(updateRpm(QVariant)));//++//cpp to qml
     QObject::connect(&a1,SIGNAL(speedChanged(QVariant)),qmlwindow,SLOT(updateSpeed(QVariant)));
-
+    QObject::connect(&a1,SIGNAL(distanceChanged(QVariant)),qmlwindow,SLOT(updateDistance(QVariant)));
 
     return app.exec();
 }
