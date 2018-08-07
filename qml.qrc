@@ -29,5 +29,11 @@
         <file>Speedlimiterwarnwhite.jpg</file>
         <file>Brakewhite.jpg</file>
         <file>celsiuswhite.jpg</file>
+        <file>carLane.png</file>
+        <file>screen1.png</file>
+        <file>screen2.png</file>
+        <file>trap1.png</file>
+        <file>trap2.png</file>
+        <file>trap3.png</file>
     </qresource>
 </RCC>

@@ -30,6 +30,7 @@ public:
     float fractionOfThrottleOpening() const;
     void setFractionOfThrottleOpening(float);
     float getRpm();
+    float getDistance();
 
 signals:
      void ignitionStateChanged(bool);
@@ -54,12 +55,13 @@ private:
     bool m_ACCState;
     float m_fractionOfThrottleOpening;
     float m_rpm;
-    float THROTTLE_MAX=80;
+   // float THROTTLE_MAX=80;
     float velocity_of_sound=0.277777778;
-    float circumference = 209.6;
+    float circumference = 0.2096;
     QTimer *timer;//++
     float m_speed;
     int distance;
+    float getSpeed();
 };
 
 #endif // ACC_H

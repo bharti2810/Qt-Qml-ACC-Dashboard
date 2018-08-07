@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
     a1.setEngineTemperature(110);
     a1.setFuelLevel(1);
     a1.setFractionOfThrottleOpening(1.2);
-    a1.setRadarTime(80);
-    a1.setAccState(0);
+    a1.setRadarTime(15);
+    a1.setAccState(1);
     QDBusConnection::sessionBus().isConnected();
     QDBusConnection::sessionBus().registerService(SERVICE_NAME);
     QDBusConnection::sessionBus().registerObject("/ACC",

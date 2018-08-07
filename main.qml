@@ -28,7 +28,9 @@ Window {
     }
     function updateSpeed(val)//+//cpp to qml
     {
+        speedValue.text=Math.round(val)
         console.log("Speed changed:"+val);//++
+
         if(ACC.ignitionState)
         {
             speedoMeter.value=val//to get values without slider
@@ -46,6 +48,24 @@ Window {
             speedoMeter.value=0
         }
     }
+    Text{
+        id:speedValue
+        x:522
+        y:270
+        width: 150
+        font.pixelSize: 28
+        color:"white"
+        z: 1
+    }
+    Text {
+        id:km
+        x:532
+        y:298
+        text: "km/hr"
+        z: 2
+        font.pixelSize: 13
+        color:"white"
+    }
     Rectangle {
         id: rectangle2
         x:300
@@ -53,6 +73,78 @@ Window {
         width:window.width*0.4
         height:200
         color:"black"
+        Image{
+
+            x: 144
+            y: 0
+            height:200
+            visible: true
+            width:243
+            source:"carLane.png"
+        }
+        Image{
+            x: 206
+            y: 60
+            width: 81
+            visible: true
+            scale:0.32
+            source:"trap1.png"
+        }
+        Image{
+            x: 200
+            y: 70
+            width: 93
+            height: 16
+            visible: true
+            scale:0.32
+            source:"trap2.png"
+        }
+        Image{
+            x: 188
+            y: 80
+            width: 118
+            height: 20
+            visible: true
+            scale:0.32
+            source:"trap3.png"
+        }
+        Image{
+            x: 176
+            y: 92
+            width: 142
+            height: 21
+            visible: true
+            scale:0.32
+            source:"trap3.png"
+        }
+        Image{
+            x: 164
+            y: 105
+            width: 167
+            height: 22
+            visible: true
+            scale:0.32
+            source:"trap3.png"
+        }
+        Image{
+            x: 124
+            y: 28
+            width: 81
+            height: 80
+            visible: true
+            scale:0.5
+            source:"screen1.png"
+        }
+        Image{
+            x: 298
+            y: 29
+            width: 79
+            height: 79
+            visible: true
+            scale:0.5
+            source:"screen2.png"
+        }
+
         Indicator {
             id: lindicator
             x: 95
@@ -307,6 +399,22 @@ Window {
             maximumValue:10
             style: CircularGaugeStyle {
                 tickmarkStepSize : 1//default tick mark size is 10
+
+                tickmark: Rectangle {
+
+                    visible: styleData.value < 10 || styleData.value % 10 == 0
+                    implicitWidth: outerRadius * 0.02
+                    antialiasing: true
+                    implicitHeight: outerRadius * 0.06
+                    color: styleData.value >= 7 ? "#FF9A00" : "#e5e5e5"
+                }
+                minorTickmark: Rectangle {
+                    visible: styleData.value < 7
+                    implicitWidth: outerRadius * 0.01
+                    antialiasing: true
+                    implicitHeight: outerRadius * 0.03
+                    color: "#e5e5e5"
+                }
 
                 tickmarkLabel:  Text {
                     font.pixelSize: 15
@@ -681,23 +789,9 @@ Window {
 
 
 
-    Column {
-        ProgressBar {
-            id:bar4
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.radarTime
-        }
-        ProgressBar {
-            id:bar5
-            to: 100
-            width: 200
-            height: 40
-            value: ACC.accState
-        }
 
-    }
+
+
 
 }
 

@@ -67,25 +67,38 @@ void ACC::setFractionOfThrottleOpening(float value)
     emit fractionOfThrottleOpeningChanged(m_fractionOfThrottleOpening);
 }
 ///////////////////////////////////////////////
-float ACC::getRpm()
+/*float ACC::getRpm()
 {
-    m_rpm= THROTTLE_MAX *fractionOfThrottleOpening();
-    m_rpm/=10;
+   // m_rpm= THROTTLE_MAX *fractionOfThrottleOpening();
+   // m_rpm/=10;
+   m_rpm= (m_speed*60)/circumference;
+   m_rpm=m_rpm/100;
     return m_rpm;
+}*/
+
+
+float ACC::getDistance()
+{
+    distance = (radarTime()*velocity_of_sound);
+            distance/=2;
+    qDebug() << "distance"<<distance ;
+    return distance;
 }
 
-void ACC::onRpmChanged()
+float ACC::getSpeed()
 {
-    qDebug() << fractionOfThrottleOpening() ;
-    emit rpmChanged(QVariant(getRpm()));//+
+    m_speed=getDistance()*radarTime();
+    return m_speed;
 }
 void ACC::onSpeedChanged() {
 
-    distance = radarTime()*velocity_of_sound;
-    qDebug() << "distance"<<distance ;
-    m_speed=getRpm()*circumference;
-    m_speed/= 12;
-    qDebug() << "speed=" << m_speed ;
-    emit speedChanged(QVariant(m_speed));//+
+     qDebug() << "speed=" << getSpeed() ;
+    emit speedChanged(QVariant(getSpeed()));//+
 
+}
+void ACC::onRpmChanged()
+{   m_rpm= (getSpeed()*12)/circumference;
+    m_rpm=m_rpm/1000;
+
+    emit rpmChanged(QVariant(m_rpm));//+
 }
