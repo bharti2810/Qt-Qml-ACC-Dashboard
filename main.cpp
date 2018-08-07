@@ -33,10 +33,13 @@ int main(int argc, char *argv[])
     a1.setIgnitionState(1);
     a1.setEngineTemperature(110);
     a1.setFuelLevel(1);
+
     a1.setRadarTime(30);
     a1.setBreakSwitch1State(1);
     a1.setBreakSwitch2State(1);
     //a1.setAccState(1);
+
+
     QDBusConnection::sessionBus().isConnected();
     QDBusConnection::sessionBus().registerService(SERVICE_NAME);
     QDBusConnection::sessionBus().registerObject("/ACC",

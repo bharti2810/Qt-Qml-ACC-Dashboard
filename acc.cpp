@@ -4,7 +4,7 @@ ACC::ACC(QObject *parent) : QObject(parent)
 {
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(onRpmChanged()));//+//commented for DBus
-     connect(timer,SIGNAL(timeout()),this,SLOT(onSpeedChanged()));//+//commented for DBus
+    connect(timer,SIGNAL(timeout()),this,SLOT(onSpeedChanged()));//+//commented for DBus
     timer->start(2000);//+//commented for DBus
 }
 bool ACC::ignitionState() const
@@ -67,6 +67,7 @@ void ACC::setBreakSwitch1State(bool value)
     emit breakSwitch1Changed(m_breakSwitch1State);
 }
 ///////////////////////////////////////////////
+
 bool ACC::breakSwitch2State() const
 {
     return m_breakSwitch2State;
@@ -78,24 +79,6 @@ void ACC::setBreakSwitch2State(bool value)
 }
 //////////////////////////////////////
 
-void ACC::onRpmChanged()
-{
 
-    //qDebug() << fractionOfThrottleOpening() ;
-    emit rpmChanged(QVariant(getRpm()));//+
-}
-void ACC::onSpeedChanged() {
-    distance = radarTime()*velocity_of_sound;
-    qDebug() << "distance"<<distance ;
-   m_speed=getRpm()*circumference;
-   m_speed/= 12;
-    qDebug() << "speed=" << m_speed ;
 
-  emit speedChanged(QVariant(m_speed));//+
-  }
-float ACC::getRpm()
-{
-    m_rpm= THROTTLE_MAX *5;
-    m_rpm/=10;
-    return m_rpm;
-}
+

@@ -29,6 +29,7 @@
         <file>Speedlimiterwarnwhite.jpg</file>
         <file>Brakewhite.jpg</file>
         <file>celsiuswhite.jpg</file>
+<<<<<<< HEAD
         <file>steerinwheel.png</file>
         <file>MyButton.qml</file>
         <file>accbutton.jpg</file>
@@ -39,5 +40,13 @@
         <file>set+.jpg</file>
         <file>main3.qml</file>
         <file>carLane.png</file>
+=======
+        <file>carLane.png</file>
+        <file>screen1.png</file>
+        <file>screen2.png</file>
+        <file>trap1.png</file>
+        <file>trap2.png</file>
+        <file>trap3.png</file>
+>>>>>>> 2390a56f21085331e66e56b2d1e8e135ca4f11ba
     </qresource>
 </RCC>

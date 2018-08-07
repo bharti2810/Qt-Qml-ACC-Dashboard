@@ -29,11 +29,13 @@ public:
     void setRadarTime(int);
     bool accState() const;
     void setAccState(bool);
+
     float getRpm();
     bool breakSwitch1State() const;
     void  setBreakSwitch1State(bool);
     bool breakSwitch2State() const;
     void  setBreakSwitch2State(bool);
+
 
 
 signals:
@@ -62,12 +64,13 @@ private:
     bool m_breakSwitch2State;
     float m_fractionOfThrottleOpening;
     float m_rpm;
-    float THROTTLE_MAX=80;
+   // float THROTTLE_MAX=80;
     float velocity_of_sound=0.277777778;
-    float circumference = 209.6;
+    float circumference = 0.2096;
     QTimer *timer;//++
     float m_speed;
     int distance;
+    float getSpeed();
 };
 
 #endif // ACC_H
