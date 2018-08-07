@@ -14,6 +14,8 @@ class ACC : public QObject
     Q_PROPERTY(int fuelLevel READ fuelLevel WRITE setFuelLevel NOTIFY fuelLevelChanged)
     Q_PROPERTY(int radarTime READ radarTime WRITE setRadarTime NOTIFY radarTimeChanged)
     Q_PROPERTY(bool accState READ accState WRITE setAccState NOTIFY accStateChanged)
+    Q_PROPERTY(bool breakSwitch1State READ breakSwitch1State WRITE setBreakSwitch1State NOTIFY breakSwitch1Changed)
+    Q_PROPERTY(bool breakSwitch2State READ breakSwitch2State WRITE setBreakSwitch2State NOTIFY breakSwitch2Changed)
 public:
     explicit ACC(QObject *parent = nullptr);
     bool ignitionState() const;
@@ -26,18 +28,24 @@ public:
     void setRadarTime(int);
     bool accState() const;
     void setAccState(bool);
-    float getRpm();
+    bool breakSwitch1State() const;
+    void  setBreakSwitch1State(bool);
+    bool breakSwitch2State() const;
+    void  setBreakSwitch2State(bool);
     float getDistance();
+    float getSpeed();
 
 signals:
-     void ignitionStateChanged(bool);
-     void engineTemperatureChanged(int);
-     void fuelLevelChanged(int);
-     void radarTimeChanged(int);
-     void accStateChanged(bool);
-     void rpmChanged(QVariant);
-     void speedChanged(QVariant);
-     void distanceChanged(QVariant);
+    void ignitionStateChanged(bool);
+    void engineTemperatureChanged(int);
+    void fuelLevelChanged(int);
+    void radarTimeChanged(int);
+    void accStateChanged(bool);
+    void breakSwitch1Changed(bool);
+    void breakSwitch2Changed(bool);
+    void rpmChanged(QVariant);
+    void speedChanged(QVariant);
+    void distanceChanged(QVariant);
 
 
 public slots:
@@ -57,7 +65,8 @@ private:
     QTimer *timer;//++
     float m_speed;
     int m_distance;
-    float getSpeed();
+    bool m_breakSwitch1State;
+    bool m_breakSwitch2State;
 };
 
 #endif // ACC_H

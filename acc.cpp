@@ -57,26 +57,37 @@ void ACC::setAccState(bool value)
     m_ACCState=value;
     emit accStateChanged(m_ACCState);
 }
-//////////////////////////////////////////////
-/*float ACC::getRpm()
+/////////////////////////////////////////////
+bool ACC::breakSwitch1State() const
 {
-   // m_rpm= THROTTLE_MAX *fractionOfThrottleOpening();
-   // m_rpm/=10;
-   m_rpm= (m_speed*60)/circumference;
-   m_rpm=m_rpm/100;
-    return m_rpm;
-}*/
-
+    return m_breakSwitch1State;
+}
+void ACC::setBreakSwitch1State(bool value)
+{
+    m_breakSwitch1State=value;
+    emit breakSwitch1Changed(m_breakSwitch1State);
+}
+///////////////////////////////////////////////
+bool ACC::breakSwitch2State() const
+{
+    return m_breakSwitch2State;
+}
+void ACC::setBreakSwitch2State(bool value)
+{
+    m_breakSwitch2State=value;
+    emit breakSwitch2Changed(m_breakSwitch2State);
+}
+//////////////////////////////////////////////
 float ACC::getDistance()
 {
     m_distance = (radarTime()*velocity_of_sound);
-            m_distance/=2;
+    m_distance/=2;
     qDebug() << "distance/"<<m_distance ;
     return m_distance;
 }
 void ACC::onDistanceChanged()
 {
-     qDebug() << "distance=" << getDistance() ;
+    qDebug() << "distance=" << getDistance() ;
     emit distanceChanged(QVariant(m_distance));//+
 }
 ///////////////////////////////////////////////
@@ -85,15 +96,15 @@ float ACC::getSpeed()
     m_speed=getDistance()*radarTime();
     return m_speed;
 }
-void ACC::onSpeedChanged() {
-
-     qDebug() << "speed=" << getSpeed() ;
+void ACC::onSpeedChanged()
+{
+    qDebug() << "speed=" << getSpeed() ;
     emit speedChanged(QVariant(getSpeed()));//+
 }
 //////////////////////////////////////////////
 void ACC::onRpmChanged()
-{   m_rpm= (getSpeed()*12)/circumference;
+{
+    m_rpm= (getSpeed()*12)/circumference;
     m_rpm=m_rpm/1000;
-
     emit rpmChanged(QVariant(m_rpm));//+
 }

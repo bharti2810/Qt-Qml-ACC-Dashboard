@@ -35,5 +35,12 @@
         <file>trap1.png</file>
         <file>trap2.png</file>
         <file>trap3.png</file>
+        <file>main4.qml</file>
+        <file>accbutton.jpg</file>
+        <file>canc.jpg</file>
+        <file>set-.jpg</file>
+        <file>set+.jpg</file>
+        <file>steerinwheel.png</file>
+        <file>res.jpg</file>
     </qresource>
 </RCC>

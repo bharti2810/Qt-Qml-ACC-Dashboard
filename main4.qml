@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.2//added for Slider
+import QtQuick.Controls 2.2 //added for Slider
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.0
@@ -48,29 +48,6 @@ Window {
             speedoMeter.value=0
         }
     }
-    function updateDistance(val)
-    {
-        console.log("Distance changed:"+val);//++
-        if(ACC.ignitionState)
-        {
-            if(val<3)
-            {image1.visible=false
-            image2.visible=false
-            }
-        else
-            {image1.visible=true
-             image2.visible=true
-            }
-    }
-        else
-        {
-            image1.visible=false
-            image2.visible=false
-            image3.visible=false
-            image4.visible=false
-            image5.visible=false
-        }
-}
     Text{
         id:speedValue
         x:522
@@ -79,7 +56,6 @@ Window {
         font.pixelSize: 28
         color:"white"
         z: 1
-        visible: (ACC.ignitionState) ? true : false
     }
     Text {
         id:km
@@ -89,7 +65,6 @@ Window {
         z: 2
         font.pixelSize: 13
         color:"white"
-        visible: (ACC.ignitionState) ? true : false
     }
     Rectangle {
         id: rectangle2
@@ -103,52 +78,51 @@ Window {
             x: 144
             y: 0
             height:200
-            visible: (ACC.ignitionState) ? true : false
+            visible: true
             width:243
             source:"carLane.png"
         }
         Image{
-            id: image1
             x: 206
             y: 60
             width: 81
+            visible: true
             scale:0.32
             source:"trap1.png"
-
         }
         Image{
-            id: image2
             x: 200
             y: 70
             width: 93
             height: 16
+            visible: true
             scale:0.32
             source:"trap2.png"
         }
         Image{
-            id: image3
             x: 188
             y: 80
             width: 118
             height: 20
+            visible: true
             scale:0.32
             source:"trap3.png"
         }
         Image{
-            id: image4
             x: 176
             y: 92
             width: 142
             height: 21
+            visible: true
             scale:0.32
             source:"trap3.png"
         }
         Image{
-            id: image5
             x: 164
             y: 105
             width: 167
             height: 22
+            visible: true
             scale:0.32
             source:"trap3.png"
         }
@@ -170,7 +144,6 @@ Window {
             scale:0.5
             source:"screen2.png"
         }
-
         Indicator {
             id: lindicator
             x: 95
@@ -228,7 +201,6 @@ Window {
             anchors.leftMargin: 4
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 4
-
             maximumValue:220
             style: CircularGaugeStyle {
                 tickmarkStepSize : 20
@@ -371,6 +343,7 @@ Window {
                 x: 75
                 y: 13
                 width: 8
+                z: -2
                 height: 0
                 z: -2
                 mySource1: "Brake.jpg"
@@ -397,6 +370,7 @@ Window {
                 x: 75
                 y: 100
                 z: -4
+
                 mySource1: "Speedlimiterwarn.jpg"
                 mySource2: "Speedlimiterwarnwhite.jpg"
                 scaleIndicatorOn:0.23
@@ -513,6 +487,7 @@ Window {
                 x: 30
                 y: 60
                 z: -1
+
                 mySource1: "Headlight.jpg"
                 mySource2: "DippedHeadlight.jpg"
                 scaleIndicatorOn:0.4
@@ -525,7 +500,9 @@ Window {
                 id: mil
                 x: 10
                 y: 100
+
                 z: -2
+
                 mySource1: "MIL.jpg"
                 mySource2: "Milwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -537,7 +514,9 @@ Window {
                 id: oil
                 x: 120
                 y: 60
+
                 z: -3
+
                 mySource1: "Oil.jpg"
                 mySource2: "Oilwhite.jpg"
                 scaleIndicatorOn:0.25
@@ -560,7 +539,9 @@ Window {
                 id: hazard
                 x: 120
                 y: 25
+
                 z: -5
+
                 mySource1: "hazard.jpg"
                 mySource2: "hazardwhite.jpg"
                 scaleIndicatorOn:0.33
@@ -803,104 +784,111 @@ Window {
                 y: 20
                 width: 8
                 height: 0
+
                 z: -1
+
                 mySource1: "fuel.jpg"
                 mySource2: "fuelwhite.jpg"
                 scaleIndicatorOn:0.25
                 scaleIndicatorOff:0.2
+
                 istatus: !(ACC.fuelLevel)
+
             }
         }
+
+
     }//rectangle for fuel indicator
 
-    /* Column {
-         ProgressBar {
-             id:bar4
-             to: 100
-             width: 200
-             height: 40
-             value: ACC.radarTime
-         }
-         ProgressBar {
-             id:bar5
-             to: 100
-             width: 200
-             height: 40
-             value: ACC.accStatebutton
-         }
+   /* Column {
+        ProgressBar {
+            id:bar4
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.radarTime
+        }
+        ProgressBar {
+            id:bar5
+            to: 100
+            width: 200
+            height: 40
+            value: ACC.accStatebutton
+        }
 
-     }*/
-
-
-     Image {
-         width: 10
-         height: 10
-         x:545
-         y:556
-         id: steeringwheel
-         source: "steerinwheel.png"
-         scale: 25
-     }
-     Image {
-         id: acc
-         x: 504
-         y: 536
-         source: "accbutton.jpg"
-         scale:0.4
-         MouseArea {
-             anchors.fill: parent
-             onClicked: {
-                if( ACC.accState)
-                {
-                   ACC.accState=0;
-                }
-                else
-                    ACC.accState=1;
-             }
-         }
-     }
-     Image {
-         id: setp
-         x: 479
-         y: 512
-         width: 128
-         height: 65
-         source: "set+.jpg"
-         scale:0.2
-     }
-     Image {
-         id: setm
-         x: 479
-         y: 557
-         width: 128
-         height: 65
-         source: "set-.jpg"
-         scale:0.2
-     }
-     Image {
-         id: res
-         x: 522
-         y: 539
-         width: 104
-         height: 53
-         source: "res.jpg"
-         scale:0.3
-     }
-     Image {
-         id: cancel
-         x: 460
-         y: 540
-         sourceSize.width: 0
-         sourceSize.height: -6
-         fillMode: Image.Stretch
-         source: "canc.jpg"
-         scale:0.3
-     }
+    }*/
 
 
-
+    Image {
+        width: 10
+        height: 10
+        x:545
+        y:556
+        id: steeringwheel
+        source: "steerinwheel.png"
+        scale: 25
+    }
+    Image {
+        id: acc
+        x: 504
+        y: 536
+        source: "accbutton.jpg"
+        scale:0.4
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+               if( ACC.accState)
+               {
+                  ACC.accState=0;
+               }
+               else
+                   ACC.accState=1;
+            }
+        }
+    }
+    Image {
+        id: setp
+        x: 479
+        y: 512
+        width: 128
+        height: 65
+        source: "set+.jpg"
+        scale:0.2
+    }
+    Image {
+        id: setm
+        x: 479
+        y: 557
+        width: 128
+        height: 65
+        source: "set-.jpg"
+        scale:0.2
+    }
+    Image {
+        id: res
+        x: 522
+        y: 539
+        width: 104
+        height: 53
+        source: "res.jpg"
+        scale:0.3
+    }
+    Image {
+        id: cancel
+        x: 460
+        y: 540
+        sourceSize.width: 0
+        sourceSize.height: -6
+        fillMode: Image.Stretch
+        source: "canc.jpg"
+        scale:0.3
+    }
 
 
 }
+
+
+
+
 
 
